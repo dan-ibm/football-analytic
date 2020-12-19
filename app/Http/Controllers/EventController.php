@@ -15,8 +15,15 @@ class EventController extends Controller
     public function index()
     {
         //
+
+        $footballEvents = Event::where('type', 'Football')->get();
+        $hockeyEvents = Event::where('type', 'Hockey')->get();
+        $cyberEvents = Event::where('type', 'Cybersport')->get();
+
         return view('events.index', [
-            'events' => Event::all()
+            'footballEvents' => $footballEvents,
+            'hockeyEvents' => $hockeyEvents,
+            'cyberEvents' => $cyberEvents,
         ]);
     }
 
@@ -28,7 +35,12 @@ class EventController extends Controller
     public function create()
     {
         //
-        return view('events.create');
+        $types = [
+            'Football',
+            'Hockey',
+            'Cybersport'
+        ];
+        return view('events.create')->with('types', $types);
     }
 
     /**
@@ -42,11 +54,12 @@ class EventController extends Controller
         //
         //$event = new Event;
 
-        $title = $request->input('title');
-        $commandA = $request->input('commandA');
-        $commandB = $request->input('commandB');
-        $predict = $request->input('predict');
-        $description = $request->input('description');
+        $title = $request->get('title');
+        $commandA = $request->get('commandA');
+        $commandB = $request->get('commandB');
+        $predict = $request->get('predict');
+        $type = $request->get('type');
+        $description = $request->get('description');
 
         //$event->save;
 
@@ -55,7 +68,8 @@ class EventController extends Controller
             'commandA' => $commandA,
             'commandB' => $commandB,
             'predict' => $predict,
-            'description' => $description
+            'description' => $description,
+            'type' => $type
         ]);
 
         return redirect('/events')->with('message', 'Success');
@@ -83,9 +97,20 @@ class EventController extends Controller
      * @param  \App\Event  $event
      * @return \Illuminate\Http\Response
      */
-    public function edit(Event $event)
+    public function edit($id)
     {
         //
+        $types = [
+            'Football',
+            'Hockey',
+            'Cybersport'
+        ];
+
+        $event = Event::find($id);
+        return view('events.edit', [
+            'event' => $event,
+            'types' => $types
+        ]);
     }
 
     /**
@@ -95,9 +120,29 @@ class EventController extends Controller
      * @param  \App\Event  $event
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Event $event)
+    public function update(Request $request, $id)
     {
         //
+        $request->validate([
+            'title'=>'required',
+            'commandA'=>'required',
+            'commandB'=>'required',
+            'predict'=>'required',
+            'type'=>'required',
+            'description'=>'required'
+        ]);
+
+        $event = Event::find($id);
+
+        $event->title = $request->get('title');
+        $event->commandA = $request->get('commandA');
+        $event->commandB = $request->get('commandB');
+        $event->predict = $request->get('predict');
+        $event->type = $request->get('type');
+        $event->description = $request->get('description');
+        $event->save();
+
+        return redirect('/events');
     }
 
     /**
@@ -106,8 +151,11 @@ class EventController extends Controller
      * @param  \App\Event  $event
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Event $event)
+    public function destroy($id)
     {
         //
+        $event = Event::find($id);
+        $event->delete();
+        return redirect('/events');
     }
 }

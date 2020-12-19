@@ -13,6 +13,7 @@ class Event extends Model
         'commandA',
         'commandB',
         'predict',
-        'description'
+        'description',
+        'type'
     ];
 }

@@ -25,10 +25,10 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
+        <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ __('Milestone 3') }}
+                    {{ __('Bet Analytics') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -56,10 +56,10 @@
                         TV Streams
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Football</a>
-                        <a class="dropdown-item" href="#">Hockey</a>
+                        <a class="dropdown-item" href="https://www.livesoccertv.com/ru/">Football</a>
+                        <a class="dropdown-item" href="https://www.nhl.com/tv">Hockey</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Cybersport</a>
+                        <a class="dropdown-item" href="https://www.twitch.tv/directory/game/Counter-Strike%3A%20Global%20Offensive">Cybersport</a>
                     </div>
                 </li>
                     </ul>

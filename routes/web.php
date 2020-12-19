@@ -13,14 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
-
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'EventController@index');
+Route::get('/home', 'EventController@index')->name('home');
 Route::get('/events', 'EventController@index')->name('events.index');
 Route::get('/event/{id}', 'EventController@show')->name('events.show');
 Route::post('/events-post', 'EventController@store')->name('events.store');
-Route::get('/events-create', 'EventController@create')->name('events.create')->middleware('auth');
+Route::get('/events-create', 'EventController@create')->name('events.create')->middleware('admin');
+Route::get('/events-edit/{id}', 'EventController@edit')->name('event.edit');
+Route::patch('/events-update/{event}', 'EventController@update')->name('event.update');
+Route::delete('/events-delete/{id}', 'EventController@destroy')->name('event.destroy');

@@ -20,6 +20,7 @@ class CreateEventsTable extends Migration
             $table->string('commandB');
             $table->string('predict');
             $table->text('description');
+            $table->string('type');
             $table->timestamps();
         });
     }
