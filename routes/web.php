@@ -17,6 +17,7 @@ Auth::routes();
 Route::get('/', 'EventController@index');
 Route::get('/home', 'EventController@index')->name('home');
 Route::get('/events', 'EventController@index')->name('events.index');
+Route::get('/events-special', 'EventController@specialRequirements')->name('events.special')->middleware('auth');
 Route::get('/event/{id}', 'EventController@show')->name('events.show');
 Route::post('/events-post', 'EventController@store')->name('events.store');
 Route::get('/events-create', 'EventController@create')->name('events.create')->middleware('admin');

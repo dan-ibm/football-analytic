@@ -25,7 +25,7 @@
 
                         <div class="col-md-4 mb-3">
                             <label class="text-secondary" for="predict">Prediction:</label>
-                            <input type="text" class="form-control" name="predict"/>
+                            <input type="number" class="form-control" name="predict"/>
                         </div>
                         <div class="col-md-4 mb-3">
                             <label class="text-secondary" for="type">Event Type:</label>
@@ -48,7 +48,14 @@
                         </div>
                         <div class="col-md-6 mb-3">
                             <label class="text-secondary" for="commandB">Team B:</label>
-                            <input type="tezt" class="form-control" name="commandB"/>
+                            <input type="text" class="form-control" name="commandB"/>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <label class="text-secondary" for="img_src">Image Link:</label>
+                            <input type="text" class="form-control" name="img_src"/>
                         </div>
                     </div>
                     <button type="submit" class="btn btn-success">Add event</button>

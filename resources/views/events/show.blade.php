@@ -27,8 +27,13 @@
         
         <h2>PREDICTION: {{ $event->predict }}</h2>
 
+        <img src="{{ $event->img_src }}" alt="{{ $event->title }}">
+
+        <p>Views: {{ $event->views }}</p>
+
         @if(Auth::user() != null && (Auth::user()->role == 'admin'))
         <div class="container">
+            <hr>
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <a href="{{ route('event.edit', $event->id)}}" class="btn btn-primary">Edit</a>

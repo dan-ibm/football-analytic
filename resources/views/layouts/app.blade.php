@@ -62,6 +62,16 @@
                         <a class="dropdown-item" href="https://www.twitch.tv/directory/game/Counter-Strike%3A%20Global%20Offensive">Cybersport</a>
                     </div>
                 </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Complete special
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/events-special?filter=predict">Predict (90-100)</a>
+                        <a class="dropdown-item" href="/events-special?filter=all">All</a>
+                    </div>
+                </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

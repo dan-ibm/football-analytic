@@ -14,6 +14,8 @@ class Event extends Model
         'commandB',
         'predict',
         'description',
-        'type'
+        'type',
+        'img_src',
+        'views'
     ];
 }

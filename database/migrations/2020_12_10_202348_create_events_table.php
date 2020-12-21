@@ -20,7 +20,10 @@ class CreateEventsTable extends Migration
             $table->string('commandB');
             $table->string('predict');
             $table->text('description');
+            $table->string('img_src');
+            $table->integer('views');
             $table->string('type');
+            $table->index('type');
             $table->timestamps();
         });
     }

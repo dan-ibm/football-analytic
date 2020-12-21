@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Event;
+use App\Http\Controllers\Schema;
 use Illuminate\Http\Request;
 
 class EventController extends Controller
@@ -24,6 +25,38 @@ class EventController extends Controller
             'footballEvents' => $footballEvents,
             'hockeyEvents' => $hockeyEvents,
             'cyberEvents' => $cyberEvents,
+        ]);
+    }
+
+    public function specialRequirements(Request $request) {
+
+        if($request->filter) {
+            if($request->filter === 'predict') {
+                $filter = Event::whereRaw([
+                    'predict' => ['$gte' => 90, '$lte' => 100],
+                ])->get();
+            }
+            else if($request->filter === 'all') {
+                $filter = Event::where('predict', 'exists', true)
+                            ->where('title', '!=', null)
+                            ->groupBy('predict')
+                            ->get(['title', 'commandA', 'commandB', 'predict', 'img_src', 'views']);
+            }
+        }
+
+        if($request->search) {
+            $filter = Event::where('title', 'like', '%'.$request->search.'%')
+                            ->orWhere('commandA', 'like', '%'.$request->search.'%')
+                            ->orWhere('commandB', 'like', '%'.$request->search.'%')
+                            ->get();
+        }
+
+        $totalCount = Event::count();
+        
+
+        return view('events.special', [
+            'filter' => $filter,
+            'totalCount' => $totalCount
         ]);
     }
 
@@ -60,6 +93,7 @@ class EventController extends Controller
         $predict = $request->get('predict');
         $type = $request->get('type');
         $description = $request->get('description');
+        $img_src = $request->get('img_src');
 
         //$event->save;
 
@@ -67,9 +101,10 @@ class EventController extends Controller
             'title' => $title,
             'commandA' => $commandA,
             'commandB' => $commandB,
-            'predict' => $predict,
+            'predict' => (int)$predict,
             'description' => $description,
-            'type' => $type
+            'type' => $type,
+            'img_src' => $img_src
         ]);
 
         return redirect('/events')->with('message', 'Success');
@@ -87,6 +122,8 @@ class EventController extends Controller
         //
 
         $event = Event::where('_id', $id)->first();
+
+        $event->increment('views');
 
         return view('events.show', ['event' => $event]);
     }
@@ -140,6 +177,7 @@ class EventController extends Controller
         $event->predict = $request->get('predict');
         $event->type = $request->get('type');
         $event->description = $request->get('description');
+        $event->img_src = $request->get('img_src');
         $event->save();
 
         return redirect('/events');
